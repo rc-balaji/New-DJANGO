@@ -1,0 +1,35 @@
+<!-- todolist_app/templates/todolist_app/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Todo List</h1>
+        <a href="{% url 'add_item' %}" class="btn btn-primary mb-3">Add New Item</a>
+        <ul class="list-group">
+            {% for item in items %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="{% url 'edit_item' item.item_id %}">{{ item.title }}</a>
+                        <span class="badge badge-primary badge-pill">{{ item.description }}</span>
+                    </div>
+                    <div>
+                        <form action="{% url 'delete_item' item.item_id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
